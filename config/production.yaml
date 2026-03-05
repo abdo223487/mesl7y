@@ -31,10 +31,10 @@ webServer:
 # connect on the public IP of the database e.g. database.examplepod.com.
 database:
   host: pg-1ad1a27a-momenhassanjj-0de6.k.aivencloud.com
-  port: 24594
   name: defaultdb
   user: avnadmin
   requireSsl: true
+  maxConnections: 15
   #isUnixSocket: true # defaults to false
 
 # This is the setup for Redis. The default for the Google Cloud Engine Terraform

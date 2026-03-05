@@ -34,7 +34,7 @@ database:
   name: defaultdb
   user: avnadmin
   requireSsl: true
-  maxConnections: 2
+  maxConnections: 15
   #requireSsl: true # defaults to false
   #isUnixSocket: true # defaults to false
 
