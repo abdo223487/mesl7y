@@ -29,12 +29,12 @@ webServer:
 
 # This is the database setup for your server.
 database:
-  host: pg-1ad1a27a-momenhassanjj-0de6.k.aivencloud.com
-  port: 24594
-  name: defaultdb
-  user: avnadmin
+  host: ep-green-voice-aiul232d-pooler.c-4.us-east-1.aws.neon.tech
+  port: 5432 # عادة Neon بيستخدم default port
+  name: aaaalll
+  user: neondb_owner
   requireSsl: true
-  maxConnections: 15
+  maxConnections: 5 # ممكن تزود شوية
   #requireSsl: true # defaults to false
   #isUnixSocket: true # defaults to false
 

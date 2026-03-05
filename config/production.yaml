@@ -28,13 +28,13 @@ webServer:
 # This is the database setup for your servers. The default for the Google Cloud
 # Engine Terraform configuration is to connect on a private IP address.
 # If you are connecting on a public IP (e.g. on AWS or Google Cloud Run), you
-# connect on the public IP of the database e.g. database.examplepod.com.
 database:
-  host: pg-1ad1a27a-momenhassanjj-0de6.k.aivencloud.com
-  name: defaultdb
-  user: avnadmin
+  host: ep-green-voice-aiul232d-pooler.c-4.us-east-1.aws.neon.tech
+  port: 5432 # عادة Neon بيستخدم default port
+  name: aaaalll
+  user: neondb_owner
   requireSsl: true
-  maxConnections: 15
+  maxConnections: 5 # ممكن تزود شوية
   #isUnixSocket: true # defaults to false
 
 # This is the setup for Redis. The default for the Google Cloud Engine Terraform
