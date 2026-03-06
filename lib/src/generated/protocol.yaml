@@ -1,2 +1,5 @@
+hadith:
+  - getAll:
+  - addHadith:
 greeting:
   - hello:
