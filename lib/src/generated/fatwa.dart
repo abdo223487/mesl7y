@@ -11,76 +11,55 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 
-abstract class Hadith implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
-  Hadith._({
+abstract class Fatwa implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
+  Fatwa._({
     this.id,
     required this.title,
-    required this.text,
-    this.narrator,
-    this.source,
-    this.category,
+    required this.content,
   });
 
-  factory Hadith({
+  factory Fatwa({
     int? id,
     required String title,
-    required String text,
-    String? narrator,
-    String? source,
-    String? category,
-  }) = _HadithImpl;
+    required String content,
+  }) = _FatwaImpl;
 
-  factory Hadith.fromJson(Map<String, dynamic> jsonSerialization) {
-    return Hadith(
+  factory Fatwa.fromJson(Map<String, dynamic> jsonSerialization) {
+    return Fatwa(
       id: jsonSerialization['id'] as int?,
       title: jsonSerialization['title'] as String,
-      text: jsonSerialization['text'] as String,
-      narrator: jsonSerialization['narrator'] as String?,
-      source: jsonSerialization['source'] as String?,
-      category: jsonSerialization['category'] as String?,
+      content: jsonSerialization['content'] as String,
     );
   }
 
-  static final t = HadithTable();
+  static final t = FatwaTable();
 
-  static const db = HadithRepository._();
+  static const db = FatwaRepository._();
 
   @override
   int? id;
 
   String title;
 
-  String text;
-
-  String? narrator;
-
-  String? source;
-
-  String? category;
+  String content;
 
   @override
   _i1.Table<int?> get table => t;
 
-  /// Returns a shallow copy of this [Hadith]
+  /// Returns a shallow copy of this [Fatwa]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  Hadith copyWith({
+  Fatwa copyWith({
     int? id,
     String? title,
-    String? text,
-    String? narrator,
-    String? source,
-    String? category,
+    String? content,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
       'title': title,
-      'text': text,
-      if (narrator != null) 'narrator': narrator,
-      if (source != null) 'source': source,
-      if (category != null) 'category': category,
+      'content': content,
     };
   }
 
@@ -89,33 +68,30 @@ abstract class Hadith implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     return {
       if (id != null) 'id': id,
       'title': title,
-      'text': text,
-      if (narrator != null) 'narrator': narrator,
-      if (source != null) 'source': source,
-      if (category != null) 'category': category,
+      'content': content,
     };
   }
 
-  static HadithInclude include() {
-    return HadithInclude._();
+  static FatwaInclude include() {
+    return FatwaInclude._();
   }
 
-  static HadithIncludeList includeList({
-    _i1.WhereExpressionBuilder<HadithTable>? where,
+  static FatwaIncludeList includeList({
+    _i1.WhereExpressionBuilder<FatwaTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<HadithTable>? orderBy,
+    _i1.OrderByBuilder<FatwaTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<HadithTable>? orderByList,
-    HadithInclude? include,
+    _i1.OrderByListBuilder<FatwaTable>? orderByList,
+    FatwaInclude? include,
   }) {
-    return HadithIncludeList._(
+    return FatwaIncludeList._(
       where: where,
       limit: limit,
       offset: offset,
-      orderBy: orderBy?.call(Hadith.t),
+      orderBy: orderBy?.call(Fatwa.t),
       orderDescending: orderDescending,
-      orderByList: orderByList?.call(Hadith.t),
+      orderByList: orderByList?.call(Fatwa.t),
       include: include,
     );
   }
@@ -128,104 +104,71 @@ abstract class Hadith implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
 
 class _Undefined {}
 
-class _HadithImpl extends Hadith {
-  _HadithImpl({
+class _FatwaImpl extends Fatwa {
+  _FatwaImpl({
     int? id,
     required String title,
-    required String text,
-    String? narrator,
-    String? source,
-    String? category,
+    required String content,
   }) : super._(
           id: id,
           title: title,
-          text: text,
-          narrator: narrator,
-          source: source,
-          category: category,
+          content: content,
         );
 
-  /// Returns a shallow copy of this [Hadith]
+  /// Returns a shallow copy of this [Fatwa]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  Hadith copyWith({
+  Fatwa copyWith({
     Object? id = _Undefined,
     String? title,
-    String? text,
-    Object? narrator = _Undefined,
-    Object? source = _Undefined,
-    Object? category = _Undefined,
+    String? content,
   }) {
-    return Hadith(
+    return Fatwa(
       id: id is int? ? id : this.id,
       title: title ?? this.title,
-      text: text ?? this.text,
-      narrator: narrator is String? ? narrator : this.narrator,
-      source: source is String? ? source : this.source,
-      category: category is String? ? category : this.category,
+      content: content ?? this.content,
     );
   }
 }
 
-class HadithTable extends _i1.Table<int?> {
-  HadithTable({super.tableRelation}) : super(tableName: 'hadith') {
+class FatwaTable extends _i1.Table<int?> {
+  FatwaTable({super.tableRelation}) : super(tableName: 'fatwa') {
     title = _i1.ColumnString(
       'title',
       this,
     );
-    text = _i1.ColumnString(
-      'text',
-      this,
-    );
-    narrator = _i1.ColumnString(
-      'narrator',
-      this,
-    );
-    source = _i1.ColumnString(
-      'source',
-      this,
-    );
-    category = _i1.ColumnString(
-      'category',
+    content = _i1.ColumnString(
+      'content',
       this,
     );
   }
 
   late final _i1.ColumnString title;
 
-  late final _i1.ColumnString text;
-
-  late final _i1.ColumnString narrator;
-
-  late final _i1.ColumnString source;
-
-  late final _i1.ColumnString category;
+  late final _i1.ColumnString content;
 
   @override
   List<_i1.Column> get columns => [
         id,
         title,
-        text,
-        narrator,
-        source,
-        category,
+        content,
       ];
 }
 
-class HadithInclude extends _i1.IncludeObject {
-  HadithInclude._();
+class FatwaInclude extends _i1.IncludeObject {
+  FatwaInclude._();
 
   @override
   Map<String, _i1.Include?> get includes => {};
 
   @override
-  _i1.Table<int?> get table => Hadith.t;
+  _i1.Table<int?> get table => Fatwa.t;
 }
 
-class HadithIncludeList extends _i1.IncludeList {
-  HadithIncludeList._({
-    _i1.WhereExpressionBuilder<HadithTable>? where,
+class FatwaIncludeList extends _i1.IncludeList {
+  FatwaIncludeList._({
+    _i1.WhereExpressionBuilder<FatwaTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -233,20 +176,20 @@ class HadithIncludeList extends _i1.IncludeList {
     super.orderByList,
     super.include,
   }) {
-    super.where = where?.call(Hadith.t);
+    super.where = where?.call(Fatwa.t);
   }
 
   @override
   Map<String, _i1.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => Hadith.t;
+  _i1.Table<int?> get table => Fatwa.t;
 }
 
-class HadithRepository {
-  const HadithRepository._();
+class FatwaRepository {
+  const FatwaRepository._();
 
-  /// Returns a list of [Hadith]s matching the given query parameters.
+  /// Returns a list of [Fatwa]s matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -268,20 +211,20 @@ class HadithRepository {
   ///   limit: 100,
   /// );
   /// ```
-  Future<List<Hadith>> find(
+  Future<List<Fatwa>> find(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<HadithTable>? where,
+    _i1.WhereExpressionBuilder<FatwaTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<HadithTable>? orderBy,
+    _i1.OrderByBuilder<FatwaTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<HadithTable>? orderByList,
+    _i1.OrderByListBuilder<FatwaTable>? orderByList,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.find<Hadith>(
-      where: where?.call(Hadith.t),
-      orderBy: orderBy?.call(Hadith.t),
-      orderByList: orderByList?.call(Hadith.t),
+    return session.db.find<Fatwa>(
+      where: where?.call(Fatwa.t),
+      orderBy: orderBy?.call(Fatwa.t),
+      orderByList: orderByList?.call(Fatwa.t),
       orderDescending: orderDescending,
       limit: limit,
       offset: offset,
@@ -289,7 +232,7 @@ class HadithRepository {
     );
   }
 
-  /// Returns the first matching [Hadith] matching the given query parameters.
+  /// Returns the first matching [Fatwa] matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -306,136 +249,136 @@ class HadithRepository {
   ///   orderBy: (t) => t.age,
   /// );
   /// ```
-  Future<Hadith?> findFirstRow(
+  Future<Fatwa?> findFirstRow(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<HadithTable>? where,
+    _i1.WhereExpressionBuilder<FatwaTable>? where,
     int? offset,
-    _i1.OrderByBuilder<HadithTable>? orderBy,
+    _i1.OrderByBuilder<FatwaTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<HadithTable>? orderByList,
+    _i1.OrderByListBuilder<FatwaTable>? orderByList,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.findFirstRow<Hadith>(
-      where: where?.call(Hadith.t),
-      orderBy: orderBy?.call(Hadith.t),
-      orderByList: orderByList?.call(Hadith.t),
+    return session.db.findFirstRow<Fatwa>(
+      where: where?.call(Fatwa.t),
+      orderBy: orderBy?.call(Fatwa.t),
+      orderByList: orderByList?.call(Fatwa.t),
       orderDescending: orderDescending,
       offset: offset,
       transaction: transaction,
     );
   }
 
-  /// Finds a single [Hadith] by its [id] or null if no such row exists.
-  Future<Hadith?> findById(
+  /// Finds a single [Fatwa] by its [id] or null if no such row exists.
+  Future<Fatwa?> findById(
     _i1.Session session,
     int id, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.findById<Hadith>(
+    return session.db.findById<Fatwa>(
       id,
       transaction: transaction,
     );
   }
 
-  /// Inserts all [Hadith]s in the list and returns the inserted rows.
+  /// Inserts all [Fatwa]s in the list and returns the inserted rows.
   ///
-  /// The returned [Hadith]s will have their `id` fields set.
+  /// The returned [Fatwa]s will have their `id` fields set.
   ///
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
-  Future<List<Hadith>> insert(
+  Future<List<Fatwa>> insert(
     _i1.Session session,
-    List<Hadith> rows, {
+    List<Fatwa> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insert<Hadith>(
+    return session.db.insert<Fatwa>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Inserts a single [Hadith] and returns the inserted row.
+  /// Inserts a single [Fatwa] and returns the inserted row.
   ///
-  /// The returned [Hadith] will have its `id` field set.
-  Future<Hadith> insertRow(
+  /// The returned [Fatwa] will have its `id` field set.
+  Future<Fatwa> insertRow(
     _i1.Session session,
-    Hadith row, {
+    Fatwa row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insertRow<Hadith>(
+    return session.db.insertRow<Fatwa>(
       row,
       transaction: transaction,
     );
   }
 
-  /// Updates all [Hadith]s in the list and returns the updated rows. If
+  /// Updates all [Fatwa]s in the list and returns the updated rows. If
   /// [columns] is provided, only those columns will be updated. Defaults to
   /// all columns.
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
-  Future<List<Hadith>> update(
+  Future<List<Fatwa>> update(
     _i1.Session session,
-    List<Hadith> rows, {
-    _i1.ColumnSelections<HadithTable>? columns,
+    List<Fatwa> rows, {
+    _i1.ColumnSelections<FatwaTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.update<Hadith>(
+    return session.db.update<Fatwa>(
       rows,
-      columns: columns?.call(Hadith.t),
+      columns: columns?.call(Fatwa.t),
       transaction: transaction,
     );
   }
 
-  /// Updates a single [Hadith]. The row needs to have its id set.
+  /// Updates a single [Fatwa]. The row needs to have its id set.
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
-  Future<Hadith> updateRow(
+  Future<Fatwa> updateRow(
     _i1.Session session,
-    Hadith row, {
-    _i1.ColumnSelections<HadithTable>? columns,
+    Fatwa row, {
+    _i1.ColumnSelections<FatwaTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.updateRow<Hadith>(
+    return session.db.updateRow<Fatwa>(
       row,
-      columns: columns?.call(Hadith.t),
+      columns: columns?.call(Fatwa.t),
       transaction: transaction,
     );
   }
 
-  /// Deletes all [Hadith]s in the list and returns the deleted rows.
+  /// Deletes all [Fatwa]s in the list and returns the deleted rows.
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
-  Future<List<Hadith>> delete(
+  Future<List<Fatwa>> delete(
     _i1.Session session,
-    List<Hadith> rows, {
+    List<Fatwa> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.delete<Hadith>(
+    return session.db.delete<Fatwa>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Deletes a single [Hadith].
-  Future<Hadith> deleteRow(
+  /// Deletes a single [Fatwa].
+  Future<Fatwa> deleteRow(
     _i1.Session session,
-    Hadith row, {
+    Fatwa row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteRow<Hadith>(
+    return session.db.deleteRow<Fatwa>(
       row,
       transaction: transaction,
     );
   }
 
   /// Deletes all rows matching the [where] expression.
-  Future<List<Hadith>> deleteWhere(
+  Future<List<Fatwa>> deleteWhere(
     _i1.Session session, {
-    required _i1.WhereExpressionBuilder<HadithTable> where,
+    required _i1.WhereExpressionBuilder<FatwaTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteWhere<Hadith>(
-      where: where(Hadith.t),
+    return session.db.deleteWhere<Fatwa>(
+      where: where(Fatwa.t),
       transaction: transaction,
     );
   }
@@ -444,12 +387,12 @@ class HadithRepository {
   /// will return the count of all rows in the table.
   Future<int> count(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<HadithTable>? where,
+    _i1.WhereExpressionBuilder<FatwaTable>? where,
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.count<Hadith>(
-      where: where?.call(Hadith.t),
+    return session.db.count<Fatwa>(
+      where: where?.call(Fatwa.t),
       limit: limit,
       transaction: transaction,
     );

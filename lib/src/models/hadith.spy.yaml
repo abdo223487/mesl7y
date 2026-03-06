@@ -1,8 +1,0 @@
-class: Hadith
-table: hadith
-fields:
-  title: String
-  text: String
-  narrator: String?
-  source: String?
-  category: String?

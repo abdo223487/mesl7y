@@ -1,0 +1,5 @@
+class: Nabi
+table: nabi
+fields:
+  content: String
+  

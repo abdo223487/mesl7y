@@ -1,0 +1,4 @@
+class: Sira
+table: sira
+fields:
+  content: String

@@ -10,64 +10,47 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
-import '../endpoints/hadith_endpoint.dart' as _i2;
-import '../greeting_endpoint.dart' as _i3;
+import '../endpoints/fatwa_endpoint.dart' as _i2;
+import '../endpoints/sira_endpoint.dart' as _i3;
+import '../greeting_endpoint.dart' as _i4;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
   void initializeEndpoints(_i1.Server server) {
     var endpoints = <String, _i1.Endpoint>{
-      'hadith': _i2.HadithEndpoint()
+      'fatwa': _i2.FatwaEndpoint()
         ..initialize(
           server,
-          'hadith',
+          'fatwa',
           null,
         ),
-      'greeting': _i3.GreetingEndpoint()
+      'sira': _i3.SiraEndpoint()
+        ..initialize(
+          server,
+          'sira',
+          null,
+        ),
+      'greeting': _i4.GreetingEndpoint()
         ..initialize(
           server,
           'greeting',
           null,
         ),
     };
-    connectors['hadith'] = _i1.EndpointConnector(
-      name: 'hadith',
-      endpoint: endpoints['hadith']!,
+    connectors['fatwa'] = _i1.EndpointConnector(
+      name: 'fatwa',
+      endpoint: endpoints['fatwa']!,
       methodConnectors: {
-        'getAll': _i1.MethodConnector(
-          name: 'getAll',
-          params: {},
-          call: (
-            _i1.Session session,
-            Map<String, dynamic> params,
-          ) async =>
-              (endpoints['hadith'] as _i2.HadithEndpoint).getAll(session),
-        ),
-        'addHadith': _i1.MethodConnector(
-          name: 'addHadith',
+        'addFatwa': _i1.MethodConnector(
+          name: 'addFatwa',
           params: {
             'title': _i1.ParameterDescription(
               name: 'title',
               type: _i1.getType<String>(),
               nullable: false,
             ),
-            'text': _i1.ParameterDescription(
-              name: 'text',
-              type: _i1.getType<String>(),
-              nullable: false,
-            ),
-            'narrator': _i1.ParameterDescription(
-              name: 'narrator',
-              type: _i1.getType<String>(),
-              nullable: false,
-            ),
-            'source': _i1.ParameterDescription(
-              name: 'source',
-              type: _i1.getType<String>(),
-              nullable: false,
-            ),
-            'category': _i1.ParameterDescription(
-              name: 'category',
+            'content': _i1.ParameterDescription(
+              name: 'content',
               type: _i1.getType<String>(),
               nullable: false,
             ),
@@ -76,14 +59,158 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['hadith'] as _i2.HadithEndpoint).addHadith(
+              (endpoints['fatwa'] as _i2.FatwaEndpoint).addFatwa(
             session,
             params['title'],
-            params['text'],
-            params['narrator'],
-            params['source'],
-            params['category'],
+            params['content'],
           ),
+        ),
+        'getFatwas': _i1.MethodConnector(
+          name: 'getFatwas',
+          params: {
+            'limit': _i1.ParameterDescription(
+              name: 'limit',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'offset': _i1.ParameterDescription(
+              name: 'offset',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['fatwa'] as _i2.FatwaEndpoint).getFatwas(
+            session,
+            limit: params['limit'],
+            offset: params['offset'],
+          ),
+        ),
+        'updateFatwa': _i1.MethodConnector(
+          name: 'updateFatwa',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'title': _i1.ParameterDescription(
+              name: 'title',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+            'content': _i1.ParameterDescription(
+              name: 'content',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['fatwa'] as _i2.FatwaEndpoint).updateFatwa(
+            session,
+            params['id'],
+            title: params['title'],
+            content: params['content'],
+          ),
+        ),
+        'deleteFatwa': _i1.MethodConnector(
+          name: 'deleteFatwa',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['fatwa'] as _i2.FatwaEndpoint).deleteFatwa(
+            session,
+            params['id'],
+          ),
+        ),
+      },
+    );
+    connectors['sira'] = _i1.EndpointConnector(
+      name: 'sira',
+      endpoint: endpoints['sira']!,
+      methodConnectors: {
+        'addSira': _i1.MethodConnector(
+          name: 'addSira',
+          params: {
+            'siraContents': _i1.ParameterDescription(
+              name: 'siraContents',
+              type: _i1.getType<List<String>>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['sira'] as _i3.SiraEndpoint).addSira(
+            session,
+            params['siraContents'],
+          ),
+        ),
+        'updateSira': _i1.MethodConnector(
+          name: 'updateSira',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'content': _i1.ParameterDescription(
+              name: 'content',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['sira'] as _i3.SiraEndpoint).updateSira(
+            session,
+            params['id'],
+            content: params['content'],
+          ),
+        ),
+        'deleteSira': _i1.MethodConnector(
+          name: 'deleteSira',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['sira'] as _i3.SiraEndpoint).deleteSira(
+            session,
+            params['id'],
+          ),
+        ),
+        'getAllSira': _i1.MethodConnector(
+          name: 'getAllSira',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['sira'] as _i3.SiraEndpoint).getAllSira(session),
         ),
       },
     );
@@ -104,7 +231,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['greeting'] as _i3.GreetingEndpoint).hello(
+              (endpoints['greeting'] as _i4.GreetingEndpoint).hello(
             session,
             params['name'],
           ),

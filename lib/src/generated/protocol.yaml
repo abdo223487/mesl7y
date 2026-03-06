@@ -1,5 +1,12 @@
-hadith:
-  - getAll:
-  - addHadith:
+fatwa:
+  - addFatwa:
+  - getFatwas:
+  - updateFatwa:
+  - deleteFatwa:
+sira:
+  - addSira:
+  - updateSira:
+  - deleteSira:
+  - getAllSira:
 greeting:
   - hello:

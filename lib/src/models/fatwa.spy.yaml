@@ -1,0 +1,5 @@
+class: Fatwa
+table: fatwa
+fields:
+  title: String
+  content: String
