@@ -3,6 +3,11 @@ fatwa:
   - getFatwas:
   - updateFatwa:
   - deleteFatwa:
+nabi:
+  - addNabi:
+  - updateNabi:
+  - deleteNabi:
+  - getAllNabi:
 sira:
   - addSira:
   - updateSira:

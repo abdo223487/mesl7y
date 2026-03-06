@@ -16,7 +16,8 @@ import 'fatwa.dart' as _i4;
 import 'nabi.dart' as _i5;
 import 'sira.dart' as _i6;
 import 'package:my_mesl7y_app_server/src/generated/fatwa.dart' as _i7;
-import 'package:my_mesl7y_app_server/src/generated/sira.dart' as _i8;
+import 'package:my_mesl7y_app_server/src/generated/nabi.dart' as _i8;
+import 'package:my_mesl7y_app_server/src/generated/sira.dart' as _i9;
 export 'greeting.dart';
 export 'fatwa.dart';
 export 'nabi.dart';
@@ -189,8 +190,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == List<String>) {
       return (data as List).map((e) => deserialize<String>(e)).toList() as T;
     }
-    if (t == List<_i8.Sira>) {
-      return (data as List).map((e) => deserialize<_i8.Sira>(e)).toList() as T;
+    if (t == List<_i8.Nabi>) {
+      return (data as List).map((e) => deserialize<_i8.Nabi>(e)).toList() as T;
+    }
+    if (t == List<_i9.Sira>) {
+      return (data as List).map((e) => deserialize<_i9.Sira>(e)).toList() as T;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
