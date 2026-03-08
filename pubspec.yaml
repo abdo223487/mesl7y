@@ -1,7 +1,5 @@
 name: my_mesl7y_app_server
 description: Starting point for a Serverpod server.
-# version: 1.0.0
-# homepage: https://www.example.com
 
 environment:
   sdk: '>=3.5.0 <4.0.0'
@@ -15,3 +13,7 @@ dev_dependencies:
   test: '^1.24.2'
   serverpod_test: 2.9.2
 
+# ---------------- Swagger Configuration ----------------
+open_api:
+  enabled: true
+  path: /swagger/index.html   # ده الرابط اللي هتدخل عليه من المتصفح
