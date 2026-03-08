@@ -1,0 +1,15 @@
+class: RefreshToken
+table: refresh_tokens
+fields:
+  userId: int
+  token: String
+  isAdmin: bool, default=false
+  expiresAt: DateTime
+  createdAt: DateTime
+  isRevoked: bool, default=false
+indexes:
+  refresh_token_idx:
+    fields: token
+    unique: true
+  refresh_token_user_idx:
+    fields: userId

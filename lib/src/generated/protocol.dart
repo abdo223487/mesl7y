@@ -12,15 +12,21 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
 import 'greeting.dart' as _i3;
-import 'fatwa.dart' as _i4;
-import 'nabi.dart' as _i5;
-import 'sira.dart' as _i6;
-import 'package:my_mesl7y_app_server/src/generated/fatwa.dart' as _i7;
-import 'package:my_mesl7y_app_server/src/generated/nabi.dart' as _i8;
-import 'package:my_mesl7y_app_server/src/generated/sira.dart' as _i9;
+import 'admin.dart' as _i4;
+import 'customer.dart' as _i5;
+import 'fatwa.dart' as _i6;
+import 'nabi.dart' as _i7;
+import 'refresh_token.dart' as _i8;
+import 'sira.dart' as _i9;
+import 'package:my_mesl7y_app_server/src/generated/fatwa.dart' as _i10;
+import 'package:my_mesl7y_app_server/src/generated/nabi.dart' as _i11;
+import 'package:my_mesl7y_app_server/src/generated/sira.dart' as _i12;
 export 'greeting.dart';
+export 'admin.dart';
+export 'customer.dart';
 export 'fatwa.dart';
 export 'nabi.dart';
+export 'refresh_token.dart';
 export 'sira.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
@@ -31,6 +37,158 @@ class Protocol extends _i1.SerializationManagerServer {
   static final Protocol _instance = Protocol._();
 
   static final List<_i2.TableDefinition> targetTableDefinitions = [
+    _i2.TableDefinition(
+      name: 'admins',
+      dartName: 'Admin',
+      schema: 'public',
+      module: 'my_mesl7y_app',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'admins_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'email',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'passwordHash',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'name',
+          columnType: _i2.ColumnType.text,
+          isNullable: true,
+          dartType: 'String?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'createdAt',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _i2.ColumnDefinition(
+          name: 'isActive',
+          columnType: _i2.ColumnType.boolean,
+          isNullable: false,
+          dartType: 'bool',
+          columnDefault: 'true',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'admins_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'admin_email_unique_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'email',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'customers',
+      dartName: 'Customer',
+      schema: 'public',
+      module: 'my_mesl7y_app',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'customers_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'email',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'passwordHash',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'name',
+          columnType: _i2.ColumnType.text,
+          isNullable: true,
+          dartType: 'String?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'createdAt',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _i2.ColumnDefinition(
+          name: 'isActive',
+          columnType: _i2.ColumnType.boolean,
+          isNullable: false,
+          dartType: 'bool',
+          columnDefault: 'true',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'customers_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'customer_email_unique_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'email',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
     _i2.TableDefinition(
       name: 'fatwa',
       dartName: 'Fatwa',
@@ -114,6 +272,102 @@ class Protocol extends _i1.SerializationManagerServer {
       managed: true,
     ),
     _i2.TableDefinition(
+      name: 'refresh_tokens',
+      dartName: 'RefreshToken',
+      schema: 'public',
+      module: 'my_mesl7y_app',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'refresh_tokens_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'userId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'token',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'isAdmin',
+          columnType: _i2.ColumnType.boolean,
+          isNullable: false,
+          dartType: 'bool',
+          columnDefault: 'false',
+        ),
+        _i2.ColumnDefinition(
+          name: 'expiresAt',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _i2.ColumnDefinition(
+          name: 'createdAt',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _i2.ColumnDefinition(
+          name: 'isRevoked',
+          columnType: _i2.ColumnType.boolean,
+          isNullable: false,
+          dartType: 'bool',
+          columnDefault: 'false',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'refresh_tokens_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'refresh_token_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'token',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'refresh_token_user_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'userId',
+            )
+          ],
+          type: 'btree',
+          isUnique: false,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
       name: 'sira',
       dartName: 'Sira',
       schema: 'public',
@@ -163,38 +417,65 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i3.Greeting) {
       return _i3.Greeting.fromJson(data) as T;
     }
-    if (t == _i4.Fatwa) {
-      return _i4.Fatwa.fromJson(data) as T;
+    if (t == _i4.Admin) {
+      return _i4.Admin.fromJson(data) as T;
     }
-    if (t == _i5.Nabi) {
-      return _i5.Nabi.fromJson(data) as T;
+    if (t == _i5.Customer) {
+      return _i5.Customer.fromJson(data) as T;
     }
-    if (t == _i6.Sira) {
-      return _i6.Sira.fromJson(data) as T;
+    if (t == _i6.Fatwa) {
+      return _i6.Fatwa.fromJson(data) as T;
+    }
+    if (t == _i7.Nabi) {
+      return _i7.Nabi.fromJson(data) as T;
+    }
+    if (t == _i8.RefreshToken) {
+      return _i8.RefreshToken.fromJson(data) as T;
+    }
+    if (t == _i9.Sira) {
+      return _i9.Sira.fromJson(data) as T;
     }
     if (t == _i1.getType<_i3.Greeting?>()) {
       return (data != null ? _i3.Greeting.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i4.Fatwa?>()) {
-      return (data != null ? _i4.Fatwa.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i4.Admin?>()) {
+      return (data != null ? _i4.Admin.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i5.Nabi?>()) {
-      return (data != null ? _i5.Nabi.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i5.Customer?>()) {
+      return (data != null ? _i5.Customer.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i6.Sira?>()) {
-      return (data != null ? _i6.Sira.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i6.Fatwa?>()) {
+      return (data != null ? _i6.Fatwa.fromJson(data) : null) as T;
     }
-    if (t == List<_i7.Fatwa>) {
-      return (data as List).map((e) => deserialize<_i7.Fatwa>(e)).toList() as T;
+    if (t == _i1.getType<_i7.Nabi?>()) {
+      return (data != null ? _i7.Nabi.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i8.RefreshToken?>()) {
+      return (data != null ? _i8.RefreshToken.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i9.Sira?>()) {
+      return (data != null ? _i9.Sira.fromJson(data) : null) as T;
+    }
+    if (t == Map<String, String>) {
+      return (data as Map).map((k, v) =>
+          MapEntry(deserialize<String>(k), deserialize<String>(v))) as T;
+    }
+    if (t == Map<String, dynamic>) {
+      return (data as Map).map((k, v) =>
+          MapEntry(deserialize<String>(k), deserialize<dynamic>(v))) as T;
+    }
+    if (t == List<_i10.Fatwa>) {
+      return (data as List).map((e) => deserialize<_i10.Fatwa>(e)).toList()
+          as T;
     }
     if (t == List<String>) {
       return (data as List).map((e) => deserialize<String>(e)).toList() as T;
     }
-    if (t == List<_i8.Nabi>) {
-      return (data as List).map((e) => deserialize<_i8.Nabi>(e)).toList() as T;
+    if (t == List<_i11.Nabi>) {
+      return (data as List).map((e) => deserialize<_i11.Nabi>(e)).toList() as T;
     }
-    if (t == List<_i9.Sira>) {
-      return (data as List).map((e) => deserialize<_i9.Sira>(e)).toList() as T;
+    if (t == List<_i12.Sira>) {
+      return (data as List).map((e) => deserialize<_i12.Sira>(e)).toList() as T;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
@@ -209,13 +490,22 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i3.Greeting) {
       return 'Greeting';
     }
-    if (data is _i4.Fatwa) {
+    if (data is _i4.Admin) {
+      return 'Admin';
+    }
+    if (data is _i5.Customer) {
+      return 'Customer';
+    }
+    if (data is _i6.Fatwa) {
       return 'Fatwa';
     }
-    if (data is _i5.Nabi) {
+    if (data is _i7.Nabi) {
       return 'Nabi';
     }
-    if (data is _i6.Sira) {
+    if (data is _i8.RefreshToken) {
+      return 'RefreshToken';
+    }
+    if (data is _i9.Sira) {
       return 'Sira';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -234,14 +524,23 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName == 'Greeting') {
       return deserialize<_i3.Greeting>(data['data']);
     }
+    if (dataClassName == 'Admin') {
+      return deserialize<_i4.Admin>(data['data']);
+    }
+    if (dataClassName == 'Customer') {
+      return deserialize<_i5.Customer>(data['data']);
+    }
     if (dataClassName == 'Fatwa') {
-      return deserialize<_i4.Fatwa>(data['data']);
+      return deserialize<_i6.Fatwa>(data['data']);
     }
     if (dataClassName == 'Nabi') {
-      return deserialize<_i5.Nabi>(data['data']);
+      return deserialize<_i7.Nabi>(data['data']);
+    }
+    if (dataClassName == 'RefreshToken') {
+      return deserialize<_i8.RefreshToken>(data['data']);
     }
     if (dataClassName == 'Sira') {
-      return deserialize<_i6.Sira>(data['data']);
+      return deserialize<_i9.Sira>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
@@ -259,12 +558,18 @@ class Protocol extends _i1.SerializationManagerServer {
       }
     }
     switch (t) {
-      case _i4.Fatwa:
-        return _i4.Fatwa.t;
-      case _i5.Nabi:
-        return _i5.Nabi.t;
-      case _i6.Sira:
-        return _i6.Sira.t;
+      case _i4.Admin:
+        return _i4.Admin.t;
+      case _i5.Customer:
+        return _i5.Customer.t;
+      case _i6.Fatwa:
+        return _i6.Fatwa.t;
+      case _i7.Nabi:
+        return _i7.Nabi.t;
+      case _i8.RefreshToken:
+        return _i8.RefreshToken.t;
+      case _i9.Sira:
+        return _i9.Sira.t;
     }
     return null;
   }

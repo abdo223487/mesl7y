@@ -1,3 +1,11 @@
+auth:
+  - register:
+  - login:
+  - refresh:
+  - logout:
+  - logoutAll:
+  - me:
+  - changePassword:
 fatwa:
   - addFatwa:
   - getFatwas:

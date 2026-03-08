@@ -1,0 +1,12 @@
+class: Customer
+table: customers
+fields:
+  email: String
+  passwordHash: String
+  name: String?
+  createdAt: DateTime
+  isActive: bool, default=true
+indexes:
+  customer_email_unique_idx:
+    fields: email
+    unique: true
