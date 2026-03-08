@@ -11,7 +11,6 @@ void main() {
     final methodObj = pathObj['get'] ?? pathObj['post'] ?? pathObj['put'] ?? pathObj['delete'];
     if (methodObj == null) continue;
 
-    // ✅ كل الـ parameters من query لـ body
     final parameters = (methodObj['parameters'] as List? ?? [])
         .where((p) => p['in'] != 'path')
         .toList();
@@ -25,12 +24,10 @@ void main() {
       if (param['required'] == true) required.add(name);
     }
 
-    // امسح الـ query parameters
     methodObj['parameters'] = (methodObj['parameters'] as List? ?? [])
         .where((p) => p['in'] == 'path')
         .toList();
 
-    // حطهم في الـ body
     if (properties.isNotEmpty) {
       methodObj['requestBody'] = {
         'required': true,
@@ -46,7 +43,6 @@ void main() {
       };
     }
 
-    // ✅ كل الـ methods تبقى POST
     pathObj.remove('get');
     pathObj.remove('put');
     pathObj.remove('delete');
@@ -55,10 +51,13 @@ void main() {
     print('✅ Fixed ${entry.key} → POST + body');
   }
 
-  file.writeAsStringSync(
-    const JsonEncoder.withIndent('  ').convert(json),
-  );
+  final output = const JsonEncoder.withIndent('  ').convert(json);
+  
+  // ✅ احفظ في root
+  file.writeAsStringSync(output);
+  
+  // ✅ انسخ لـ web
+  File('web/apispec.json').writeAsStringSync(output);
+
   print('\n🎉 Done!');
 }
-
-

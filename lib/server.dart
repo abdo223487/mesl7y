@@ -16,9 +16,9 @@ void run(List<String> args) async {
     '/*',
   );
 
-  // ✅ جرب كده
+  // ✅ حدد المسار بشكل صريح
   pod.webServer.addRoute(
-    SwaggerUIRoute(Directory.current),
+    SwaggerUIRoute(Directory('web')),
     '/swagger/*',
   );
 
