@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://mesl7y.onrender.com",
+      "url": "http://localhost:8082",
       "description": "Main API Server"
     }
   ],
@@ -766,6 +766,133 @@
         ],
         "parameters": []
       }
+    },
+    "/unit/addUnit": {
+      "post": {
+        "summary": "addUnit",
+        "operationId": "unit.addUnit",
+        "tags": [
+          "unit"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unit"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "integer"
+                  },
+                  "imageData": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "number"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unit/getUnit": {
+      "post": {
+        "summary": "getUnit",
+        "operationId": "unit.getUnit",
+        "tags": [
+          "unit"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unit"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unit/getAllUnits": {
+      "post": {
+        "summary": "getAllUnits",
+        "operationId": "unit.getAllUnits",
+        "tags": [
+          "unit"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Unit"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "parameters": []
+      }
     }
   },
   "components": {
@@ -893,6 +1020,25 @@
         },
         "required": [
           "content"
+        ]
+      },
+      "Unit": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "imageUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "number"
         ]
       }
     },

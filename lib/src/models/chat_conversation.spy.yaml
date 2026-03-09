@@ -1,0 +1,13 @@
+class: ChatConversation
+table: chat_conversations
+fields:
+  customerId: int
+  adminId: int?
+  status: String, default='pending'
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  chat_conv_customer_idx:
+    fields: customerId
+  chat_conv_status_idx:
+    fields: status

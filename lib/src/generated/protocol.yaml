@@ -6,6 +6,12 @@ auth:
   - logoutAll:
   - me:
   - changePassword:
+chat:
+  - requestChat:
+  - acceptChat:
+  - sendMessage:
+  - getMessages:
+  - getPendingChats:
 fatwa:
   - addFatwa:
   - getFatwas:

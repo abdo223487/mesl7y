@@ -13,16 +13,22 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
 import 'greeting.dart' as _i3;
 import 'admin.dart' as _i4;
-import 'customer.dart' as _i5;
-import 'fatwa.dart' as _i6;
-import 'nabi.dart' as _i7;
-import 'refresh_token.dart' as _i8;
-import 'sira.dart' as _i9;
-import 'package:my_mesl7y_app_server/src/generated/fatwa.dart' as _i10;
-import 'package:my_mesl7y_app_server/src/generated/nabi.dart' as _i11;
-import 'package:my_mesl7y_app_server/src/generated/sira.dart' as _i12;
+import 'chat_conversation.dart' as _i5;
+import 'chat_event.dart' as _i6;
+import 'chat_message.dart' as _i7;
+import 'customer.dart' as _i8;
+import 'fatwa.dart' as _i9;
+import 'nabi.dart' as _i10;
+import 'refresh_token.dart' as _i11;
+import 'sira.dart' as _i12;
+import 'package:my_mesl7y_app_server/src/generated/fatwa.dart' as _i13;
+import 'package:my_mesl7y_app_server/src/generated/nabi.dart' as _i14;
+import 'package:my_mesl7y_app_server/src/generated/sira.dart' as _i15;
 export 'greeting.dart';
 export 'admin.dart';
+export 'chat_conversation.dart';
+export 'chat_event.dart';
+export 'chat_message.dart';
 export 'customer.dart';
 export 'fatwa.dart';
 export 'nabi.dart';
@@ -108,6 +114,170 @@ class Protocol extends _i1.SerializationManagerServer {
           ],
           type: 'btree',
           isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'chat_conversations',
+      dartName: 'ChatConversation',
+      schema: 'public',
+      module: 'my_mesl7y_app',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'chat_conversations_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'customerId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'adminId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: true,
+          dartType: 'int?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'status',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+          columnDefault: '\'pending\'::text',
+        ),
+        _i2.ColumnDefinition(
+          name: 'createdAt',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _i2.ColumnDefinition(
+          name: 'updatedAt',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'chat_conversations_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'chat_conv_customer_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'customerId',
+            )
+          ],
+          type: 'btree',
+          isUnique: false,
+          isPrimary: false,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'chat_conv_status_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'status',
+            )
+          ],
+          type: 'btree',
+          isUnique: false,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'chat_messages',
+      dartName: 'ChatMessage',
+      schema: 'public',
+      module: 'my_mesl7y_app',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'chat_messages_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'conversationId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'senderId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'senderRole',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'message',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'createdAt',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'chat_messages_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'chat_msg_conversation_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'conversationId',
+            )
+          ],
+          type: 'btree',
+          isUnique: false,
           isPrimary: false,
         ),
       ],
@@ -420,20 +590,29 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i4.Admin) {
       return _i4.Admin.fromJson(data) as T;
     }
-    if (t == _i5.Customer) {
-      return _i5.Customer.fromJson(data) as T;
+    if (t == _i5.ChatConversation) {
+      return _i5.ChatConversation.fromJson(data) as T;
     }
-    if (t == _i6.Fatwa) {
-      return _i6.Fatwa.fromJson(data) as T;
+    if (t == _i6.ChatEvent) {
+      return _i6.ChatEvent.fromJson(data) as T;
     }
-    if (t == _i7.Nabi) {
-      return _i7.Nabi.fromJson(data) as T;
+    if (t == _i7.ChatMessage) {
+      return _i7.ChatMessage.fromJson(data) as T;
     }
-    if (t == _i8.RefreshToken) {
-      return _i8.RefreshToken.fromJson(data) as T;
+    if (t == _i8.Customer) {
+      return _i8.Customer.fromJson(data) as T;
     }
-    if (t == _i9.Sira) {
-      return _i9.Sira.fromJson(data) as T;
+    if (t == _i9.Fatwa) {
+      return _i9.Fatwa.fromJson(data) as T;
+    }
+    if (t == _i10.Nabi) {
+      return _i10.Nabi.fromJson(data) as T;
+    }
+    if (t == _i11.RefreshToken) {
+      return _i11.RefreshToken.fromJson(data) as T;
+    }
+    if (t == _i12.Sira) {
+      return _i12.Sira.fromJson(data) as T;
     }
     if (t == _i1.getType<_i3.Greeting?>()) {
       return (data != null ? _i3.Greeting.fromJson(data) : null) as T;
@@ -441,20 +620,29 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i4.Admin?>()) {
       return (data != null ? _i4.Admin.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i5.Customer?>()) {
-      return (data != null ? _i5.Customer.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i5.ChatConversation?>()) {
+      return (data != null ? _i5.ChatConversation.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i6.Fatwa?>()) {
-      return (data != null ? _i6.Fatwa.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i6.ChatEvent?>()) {
+      return (data != null ? _i6.ChatEvent.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i7.Nabi?>()) {
-      return (data != null ? _i7.Nabi.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i7.ChatMessage?>()) {
+      return (data != null ? _i7.ChatMessage.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i8.RefreshToken?>()) {
-      return (data != null ? _i8.RefreshToken.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i8.Customer?>()) {
+      return (data != null ? _i8.Customer.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i9.Sira?>()) {
-      return (data != null ? _i9.Sira.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i9.Fatwa?>()) {
+      return (data != null ? _i9.Fatwa.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i10.Nabi?>()) {
+      return (data != null ? _i10.Nabi.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i11.RefreshToken?>()) {
+      return (data != null ? _i11.RefreshToken.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i12.Sira?>()) {
+      return (data != null ? _i12.Sira.fromJson(data) : null) as T;
     }
     if (t == Map<String, String>) {
       return (data as Map).map((k, v) =>
@@ -464,18 +652,18 @@ class Protocol extends _i1.SerializationManagerServer {
       return (data as Map).map((k, v) =>
           MapEntry(deserialize<String>(k), deserialize<dynamic>(v))) as T;
     }
-    if (t == List<_i10.Fatwa>) {
-      return (data as List).map((e) => deserialize<_i10.Fatwa>(e)).toList()
+    if (t == List<_i13.Fatwa>) {
+      return (data as List).map((e) => deserialize<_i13.Fatwa>(e)).toList()
           as T;
     }
     if (t == List<String>) {
       return (data as List).map((e) => deserialize<String>(e)).toList() as T;
     }
-    if (t == List<_i11.Nabi>) {
-      return (data as List).map((e) => deserialize<_i11.Nabi>(e)).toList() as T;
+    if (t == List<_i14.Nabi>) {
+      return (data as List).map((e) => deserialize<_i14.Nabi>(e)).toList() as T;
     }
-    if (t == List<_i12.Sira>) {
-      return (data as List).map((e) => deserialize<_i12.Sira>(e)).toList() as T;
+    if (t == List<_i15.Sira>) {
+      return (data as List).map((e) => deserialize<_i15.Sira>(e)).toList() as T;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
@@ -493,19 +681,28 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i4.Admin) {
       return 'Admin';
     }
-    if (data is _i5.Customer) {
+    if (data is _i5.ChatConversation) {
+      return 'ChatConversation';
+    }
+    if (data is _i6.ChatEvent) {
+      return 'ChatEvent';
+    }
+    if (data is _i7.ChatMessage) {
+      return 'ChatMessage';
+    }
+    if (data is _i8.Customer) {
       return 'Customer';
     }
-    if (data is _i6.Fatwa) {
+    if (data is _i9.Fatwa) {
       return 'Fatwa';
     }
-    if (data is _i7.Nabi) {
+    if (data is _i10.Nabi) {
       return 'Nabi';
     }
-    if (data is _i8.RefreshToken) {
+    if (data is _i11.RefreshToken) {
       return 'RefreshToken';
     }
-    if (data is _i9.Sira) {
+    if (data is _i12.Sira) {
       return 'Sira';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -527,20 +724,29 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName == 'Admin') {
       return deserialize<_i4.Admin>(data['data']);
     }
+    if (dataClassName == 'ChatConversation') {
+      return deserialize<_i5.ChatConversation>(data['data']);
+    }
+    if (dataClassName == 'ChatEvent') {
+      return deserialize<_i6.ChatEvent>(data['data']);
+    }
+    if (dataClassName == 'ChatMessage') {
+      return deserialize<_i7.ChatMessage>(data['data']);
+    }
     if (dataClassName == 'Customer') {
-      return deserialize<_i5.Customer>(data['data']);
+      return deserialize<_i8.Customer>(data['data']);
     }
     if (dataClassName == 'Fatwa') {
-      return deserialize<_i6.Fatwa>(data['data']);
+      return deserialize<_i9.Fatwa>(data['data']);
     }
     if (dataClassName == 'Nabi') {
-      return deserialize<_i7.Nabi>(data['data']);
+      return deserialize<_i10.Nabi>(data['data']);
     }
     if (dataClassName == 'RefreshToken') {
-      return deserialize<_i8.RefreshToken>(data['data']);
+      return deserialize<_i11.RefreshToken>(data['data']);
     }
     if (dataClassName == 'Sira') {
-      return deserialize<_i9.Sira>(data['data']);
+      return deserialize<_i12.Sira>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
@@ -560,16 +766,20 @@ class Protocol extends _i1.SerializationManagerServer {
     switch (t) {
       case _i4.Admin:
         return _i4.Admin.t;
-      case _i5.Customer:
-        return _i5.Customer.t;
-      case _i6.Fatwa:
-        return _i6.Fatwa.t;
-      case _i7.Nabi:
-        return _i7.Nabi.t;
-      case _i8.RefreshToken:
-        return _i8.RefreshToken.t;
-      case _i9.Sira:
-        return _i9.Sira.t;
+      case _i5.ChatConversation:
+        return _i5.ChatConversation.t;
+      case _i7.ChatMessage:
+        return _i7.ChatMessage.t;
+      case _i8.Customer:
+        return _i8.Customer.t;
+      case _i9.Fatwa:
+        return _i9.Fatwa.t;
+      case _i10.Nabi:
+        return _i10.Nabi.t;
+      case _i11.RefreshToken:
+        return _i11.RefreshToken.t;
+      case _i12.Sira:
+        return _i12.Sira.t;
     }
     return null;
   }

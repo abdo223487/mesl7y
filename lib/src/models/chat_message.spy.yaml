@@ -1,0 +1,11 @@
+class: ChatMessage
+table: chat_messages
+fields:
+  conversationId: int
+  senderId: int
+  senderRole: String
+  message: String
+  createdAt: DateTime
+indexes:
+  chat_msg_conversation_idx:
+    fields: conversationId

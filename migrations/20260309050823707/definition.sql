@@ -1,6 +1,36 @@
 BEGIN;
 
 --
+-- Class Admin as table admins
+--
+CREATE TABLE "admins" (
+    "id" bigserial PRIMARY KEY,
+    "email" text NOT NULL,
+    "passwordHash" text NOT NULL,
+    "name" text,
+    "createdAt" timestamp without time zone NOT NULL,
+    "isActive" boolean NOT NULL DEFAULT true
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "admin_email_unique_idx" ON "admins" USING btree ("email");
+
+--
+-- Class Customer as table customers
+--
+CREATE TABLE "customers" (
+    "id" bigserial PRIMARY KEY,
+    "email" text NOT NULL,
+    "passwordHash" text NOT NULL,
+    "name" text,
+    "createdAt" timestamp without time zone NOT NULL,
+    "isActive" boolean NOT NULL DEFAULT true
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "customer_email_unique_idx" ON "customers" USING btree ("email");
+
+--
 -- Class Fatwa as table fatwa
 --
 CREATE TABLE "fatwa" (
@@ -10,15 +40,36 @@ CREATE TABLE "fatwa" (
 );
 
 --
--- Class Hadith as table hadith
+-- Class Nabi as table nabi
 --
-CREATE TABLE "hadith" (
+CREATE TABLE "nabi" (
     "id" bigserial PRIMARY KEY,
-    "title" text NOT NULL,
-    "text" text NOT NULL,
-    "narrator" text,
-    "source" text,
-    "category" text
+    "content" text NOT NULL
+);
+
+--
+-- Class RefreshToken as table refresh_tokens
+--
+CREATE TABLE "refresh_tokens" (
+    "id" bigserial PRIMARY KEY,
+    "userId" bigint NOT NULL,
+    "token" text NOT NULL,
+    "isAdmin" boolean NOT NULL DEFAULT false,
+    "expiresAt" timestamp without time zone NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "isRevoked" boolean NOT NULL DEFAULT false
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "refresh_token_idx" ON "refresh_tokens" USING btree ("token");
+CREATE INDEX "refresh_token_user_idx" ON "refresh_tokens" USING btree ("userId");
+
+--
+-- Class Sira as table sira
+--
+CREATE TABLE "sira" (
+    "id" bigserial PRIMARY KEY,
+    "content" text NOT NULL
 );
 
 --
@@ -262,9 +313,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR my_mesl7y_app
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('my_mesl7y_app', '20260306124910077', now())
+    VALUES ('my_mesl7y_app', '20260309050823707', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20260306124910077', "timestamp" = now();
+    DO UPDATE SET "version" = '20260309050823707', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod

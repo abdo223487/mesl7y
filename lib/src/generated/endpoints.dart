@@ -11,10 +11,11 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/auth_endpoint.dart' as _i2;
-import '../endpoints/fatwa_endpoint.dart' as _i3;
-import '../endpoints/nabi_endpoint.dart' as _i4;
-import '../endpoints/sira_endpoint.dart' as _i5;
-import '../greeting_endpoint.dart' as _i6;
+import '../endpoints/chat_endpoint.dart' as _i3;
+import '../endpoints/fatwa_endpoint.dart' as _i4;
+import '../endpoints/nabi_endpoint.dart' as _i5;
+import '../endpoints/sira_endpoint.dart' as _i6;
+import '../greeting_endpoint.dart' as _i7;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -26,25 +27,31 @@ class Endpoints extends _i1.EndpointDispatch {
           'auth',
           null,
         ),
-      'fatwa': _i3.FatwaEndpoint()
+      'chat': _i3.ChatEndpoint()
+        ..initialize(
+          server,
+          'chat',
+          null,
+        ),
+      'fatwa': _i4.FatwaEndpoint()
         ..initialize(
           server,
           'fatwa',
           null,
         ),
-      'nabi': _i4.NabiEndpoint()
+      'nabi': _i5.NabiEndpoint()
         ..initialize(
           server,
           'nabi',
           null,
         ),
-      'sira': _i5.SiraEndpoint()
+      'sira': _i6.SiraEndpoint()
         ..initialize(
           server,
           'sira',
           null,
         ),
-      'greeting': _i6.GreetingEndpoint()
+      'greeting': _i7.GreetingEndpoint()
         ..initialize(
           server,
           'greeting',
@@ -198,6 +205,90 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
+    connectors['chat'] = _i1.EndpointConnector(
+      name: 'chat',
+      endpoint: endpoints['chat']!,
+      methodConnectors: {
+        'requestChat': _i1.MethodConnector(
+          name: 'requestChat',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['chat'] as _i3.ChatEndpoint).requestChat(session),
+        ),
+        'acceptChat': _i1.MethodConnector(
+          name: 'acceptChat',
+          params: {
+            'conversationId': _i1.ParameterDescription(
+              name: 'conversationId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['chat'] as _i3.ChatEndpoint).acceptChat(
+            session,
+            params['conversationId'],
+          ),
+        ),
+        'sendMessage': _i1.MethodConnector(
+          name: 'sendMessage',
+          params: {
+            'conversationId': _i1.ParameterDescription(
+              name: 'conversationId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'message': _i1.ParameterDescription(
+              name: 'message',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['chat'] as _i3.ChatEndpoint).sendMessage(
+            session,
+            params['conversationId'],
+            params['message'],
+          ),
+        ),
+        'getMessages': _i1.MethodConnector(
+          name: 'getMessages',
+          params: {
+            'conversationId': _i1.ParameterDescription(
+              name: 'conversationId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['chat'] as _i3.ChatEndpoint).getMessages(
+            session,
+            params['conversationId'],
+          ),
+        ),
+        'getPendingChats': _i1.MethodConnector(
+          name: 'getPendingChats',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['chat'] as _i3.ChatEndpoint).getPendingChats(session),
+        ),
+      },
+    );
     connectors['fatwa'] = _i1.EndpointConnector(
       name: 'fatwa',
       endpoint: endpoints['fatwa']!,
@@ -220,7 +311,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['fatwa'] as _i3.FatwaEndpoint).addFatwa(
+              (endpoints['fatwa'] as _i4.FatwaEndpoint).addFatwa(
             session,
             params['title'],
             params['content'],
@@ -244,7 +335,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['fatwa'] as _i3.FatwaEndpoint).getFatwas(
+              (endpoints['fatwa'] as _i4.FatwaEndpoint).getFatwas(
             session,
             limit: params['limit'],
             offset: params['offset'],
@@ -273,7 +364,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['fatwa'] as _i3.FatwaEndpoint).updateFatwa(
+              (endpoints['fatwa'] as _i4.FatwaEndpoint).updateFatwa(
             session,
             params['id'],
             title: params['title'],
@@ -293,7 +384,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['fatwa'] as _i3.FatwaEndpoint).deleteFatwa(
+              (endpoints['fatwa'] as _i4.FatwaEndpoint).deleteFatwa(
             session,
             params['id'],
           ),
@@ -317,7 +408,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['nabi'] as _i4.NabiEndpoint).addNabi(
+              (endpoints['nabi'] as _i5.NabiEndpoint).addNabi(
             session,
             params['nabiContents'],
           ),
@@ -340,7 +431,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['nabi'] as _i4.NabiEndpoint).updateNabi(
+              (endpoints['nabi'] as _i5.NabiEndpoint).updateNabi(
             session,
             params['id'],
             content: params['content'],
@@ -359,7 +450,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['nabi'] as _i4.NabiEndpoint).deleteNabi(
+              (endpoints['nabi'] as _i5.NabiEndpoint).deleteNabi(
             session,
             params['id'],
           ),
@@ -371,7 +462,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['nabi'] as _i4.NabiEndpoint).getAllNabi(session),
+              (endpoints['nabi'] as _i5.NabiEndpoint).getAllNabi(session),
         ),
       },
     );
@@ -392,7 +483,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['sira'] as _i5.SiraEndpoint).addSira(
+              (endpoints['sira'] as _i6.SiraEndpoint).addSira(
             session,
             params['siraContents'],
           ),
@@ -415,7 +506,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['sira'] as _i5.SiraEndpoint).updateSira(
+              (endpoints['sira'] as _i6.SiraEndpoint).updateSira(
             session,
             params['id'],
             content: params['content'],
@@ -434,7 +525,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['sira'] as _i5.SiraEndpoint).deleteSira(
+              (endpoints['sira'] as _i6.SiraEndpoint).deleteSira(
             session,
             params['id'],
           ),
@@ -446,7 +537,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['sira'] as _i5.SiraEndpoint).getAllSira(session),
+              (endpoints['sira'] as _i6.SiraEndpoint).getAllSira(session),
         ),
       },
     );
@@ -467,7 +558,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['greeting'] as _i6.GreetingEndpoint).hello(
+              (endpoints['greeting'] as _i7.GreetingEndpoint).hello(
             session,
             params['name'],
           ),

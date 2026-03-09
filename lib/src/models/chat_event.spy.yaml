@@ -1,0 +1,8 @@
+class: ChatEvent
+fields:
+  type: String
+  conversationId: int
+  senderId: int
+  senderRole: String
+  message: String
+  sentAt: String

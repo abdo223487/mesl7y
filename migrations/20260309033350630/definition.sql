@@ -313,9 +313,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR my_mesl7y_app
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('my_mesl7y_app', '20260308170237297', now())
+    VALUES ('my_mesl7y_app', '20260309033350630', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20260308170237297', "timestamp" = now();
+    DO UPDATE SET "version" = '20260309033350630', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod
