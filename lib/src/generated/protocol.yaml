@@ -12,11 +12,19 @@ chat:
   - sendMessage:
   - getMessages:
   - getPendingChats:
+  - getMyActiveChats:
+  - getMyChats:
 fatwa:
   - addFatwa:
   - getFatwas:
   - updateFatwa:
   - deleteFatwa:
+material:
+  - uploadMaterial:
+  - getAllMaterials:
+  - getMaterialsByYear:
+  - getMaterialsByName:
+  - deleteMaterial:
 nabi:
   - addNabi:
   - updateNabi:

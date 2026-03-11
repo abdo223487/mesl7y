@@ -46,3 +46,4 @@ class SiraEndpoint extends Endpoint {
     return await Sira.db.find(session);
   }
 }
+

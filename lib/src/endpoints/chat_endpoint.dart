@@ -250,4 +250,49 @@ class ChatEndpoint extends Endpoint with AuthProtected {
       session.messages.removeListener(channel, callback);
     });
   }
+  Future<String> getMyActiveChats(Session session) async {
+  final info = await session.authenticated;
+  if (info == null) throw Exception('unauthorized');
+  if (!info.scopes.contains(Scope('admin'))) throw Exception('forbidden');
+
+  final adminId = info.userId;
+
+  final conversations = await ChatConversation.db.find(
+    session,
+    where: (c) => c.adminId.equals(adminId) & c.status.equals('active'),
+    orderBy: (c) => c.updatedAt,
+  );
+
+  return jsonEncode(conversations.map((c) => {
+    'conversationId': c.id,
+    'customerId': c.customerId,
+    'status': c.status,
+    'createdAt': c.createdAt.toIso8601String(),
+  }).toList());
+}
+
+
+Future<String> getMyChats(Session session) async {
+  final info = await session.authenticated;
+  if (info == null) throw Exception('unauthorized');
+  if (info.scopes.contains(Scope('admin'))) throw Exception('forbidden');
+
+  final customerId = info.userId;
+
+  final conversations = await ChatConversation.db.find(
+    session,
+    where: (c) => c.customerId.equals(customerId),
+    orderBy: (c) => c.updatedAt,
+  );
+
+  return jsonEncode(conversations.map((c) => {
+    'conversationId': c.id,
+    'customerId': c.customerId,
+    'status': c.status,
+    'createdAt': c.createdAt.toIso8601String(),
+  }).toList());
+}
+
+
+
 }

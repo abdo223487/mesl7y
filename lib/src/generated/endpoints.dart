@@ -13,9 +13,10 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/auth_endpoint.dart' as _i2;
 import '../endpoints/chat_endpoint.dart' as _i3;
 import '../endpoints/fatwa_endpoint.dart' as _i4;
-import '../endpoints/nabi_endpoint.dart' as _i5;
-import '../endpoints/sira_endpoint.dart' as _i6;
-import '../greeting_endpoint.dart' as _i7;
+import '../endpoints/material_endpoint.dart' as _i5;
+import '../endpoints/nabi_endpoint.dart' as _i6;
+import '../endpoints/sira_endpoint.dart' as _i7;
+import '../greeting_endpoint.dart' as _i8;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -39,19 +40,25 @@ class Endpoints extends _i1.EndpointDispatch {
           'fatwa',
           null,
         ),
-      'nabi': _i5.NabiEndpoint()
+      'material': _i5.MaterialEndpoint()
+        ..initialize(
+          server,
+          'material',
+          null,
+        ),
+      'nabi': _i6.NabiEndpoint()
         ..initialize(
           server,
           'nabi',
           null,
         ),
-      'sira': _i6.SiraEndpoint()
+      'sira': _i7.SiraEndpoint()
         ..initialize(
           server,
           'sira',
           null,
         ),
-      'greeting': _i7.GreetingEndpoint()
+      'greeting': _i8.GreetingEndpoint()
         ..initialize(
           server,
           'greeting',
@@ -287,6 +294,24 @@ class Endpoints extends _i1.EndpointDispatch {
           ) async =>
               (endpoints['chat'] as _i3.ChatEndpoint).getPendingChats(session),
         ),
+        'getMyActiveChats': _i1.MethodConnector(
+          name: 'getMyActiveChats',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['chat'] as _i3.ChatEndpoint).getMyActiveChats(session),
+        ),
+        'getMyChats': _i1.MethodConnector(
+          name: 'getMyChats',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['chat'] as _i3.ChatEndpoint).getMyChats(session),
+        ),
       },
     );
     connectors['fatwa'] = _i1.EndpointConnector(
@@ -391,6 +416,114 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
+    connectors['material'] = _i1.EndpointConnector(
+      name: 'material',
+      endpoint: endpoints['material']!,
+      methodConnectors: {
+        'uploadMaterial': _i1.MethodConnector(
+          name: 'uploadMaterial',
+          params: {
+            'yearName': _i1.ParameterDescription(
+              name: 'yearName',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'materialName': _i1.ParameterDescription(
+              name: 'materialName',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'fileUrl': _i1.ParameterDescription(
+              name: 'fileUrl',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'fileType': _i1.ParameterDescription(
+              name: 'fileType',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['material'] as _i5.MaterialEndpoint).uploadMaterial(
+            session,
+            yearName: params['yearName'],
+            materialName: params['materialName'],
+            fileUrl: params['fileUrl'],
+            fileType: params['fileType'],
+          ),
+        ),
+        'getAllMaterials': _i1.MethodConnector(
+          name: 'getAllMaterials',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['material'] as _i5.MaterialEndpoint)
+                  .getAllMaterials(session),
+        ),
+        'getMaterialsByYear': _i1.MethodConnector(
+          name: 'getMaterialsByYear',
+          params: {
+            'yearName': _i1.ParameterDescription(
+              name: 'yearName',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['material'] as _i5.MaterialEndpoint)
+                  .getMaterialsByYear(
+            session,
+            params['yearName'],
+          ),
+        ),
+        'getMaterialsByName': _i1.MethodConnector(
+          name: 'getMaterialsByName',
+          params: {
+            'materialName': _i1.ParameterDescription(
+              name: 'materialName',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['material'] as _i5.MaterialEndpoint)
+                  .getMaterialsByName(
+            session,
+            params['materialName'],
+          ),
+        ),
+        'deleteMaterial': _i1.MethodConnector(
+          name: 'deleteMaterial',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['material'] as _i5.MaterialEndpoint).deleteMaterial(
+            session,
+            params['id'],
+          ),
+        ),
+      },
+    );
     connectors['nabi'] = _i1.EndpointConnector(
       name: 'nabi',
       endpoint: endpoints['nabi']!,
@@ -408,7 +541,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['nabi'] as _i5.NabiEndpoint).addNabi(
+              (endpoints['nabi'] as _i6.NabiEndpoint).addNabi(
             session,
             params['nabiContents'],
           ),
@@ -431,7 +564,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['nabi'] as _i5.NabiEndpoint).updateNabi(
+              (endpoints['nabi'] as _i6.NabiEndpoint).updateNabi(
             session,
             params['id'],
             content: params['content'],
@@ -450,7 +583,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['nabi'] as _i5.NabiEndpoint).deleteNabi(
+              (endpoints['nabi'] as _i6.NabiEndpoint).deleteNabi(
             session,
             params['id'],
           ),
@@ -462,7 +595,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['nabi'] as _i5.NabiEndpoint).getAllNabi(session),
+              (endpoints['nabi'] as _i6.NabiEndpoint).getAllNabi(session),
         ),
       },
     );
@@ -483,7 +616,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['sira'] as _i6.SiraEndpoint).addSira(
+              (endpoints['sira'] as _i7.SiraEndpoint).addSira(
             session,
             params['siraContents'],
           ),
@@ -506,7 +639,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['sira'] as _i6.SiraEndpoint).updateSira(
+              (endpoints['sira'] as _i7.SiraEndpoint).updateSira(
             session,
             params['id'],
             content: params['content'],
@@ -525,7 +658,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['sira'] as _i6.SiraEndpoint).deleteSira(
+              (endpoints['sira'] as _i7.SiraEndpoint).deleteSira(
             session,
             params['id'],
           ),
@@ -537,7 +670,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['sira'] as _i6.SiraEndpoint).getAllSira(session),
+              (endpoints['sira'] as _i7.SiraEndpoint).getAllSira(session),
         ),
       },
     );
@@ -558,7 +691,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['greeting'] as _i7.GreetingEndpoint).hello(
+              (endpoints['greeting'] as _i8.GreetingEndpoint).hello(
             session,
             params['name'],
           ),

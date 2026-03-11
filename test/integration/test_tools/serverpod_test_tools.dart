@@ -15,9 +15,10 @@ import 'package:serverpod_test/serverpod_test.dart' as _i1;
 import 'package:serverpod/serverpod.dart' as _i2;
 import 'dart:async' as _i3;
 import 'package:my_mesl7y_app_server/src/generated/fatwa.dart' as _i4;
-import 'package:my_mesl7y_app_server/src/generated/nabi.dart' as _i5;
-import 'package:my_mesl7y_app_server/src/generated/sira.dart' as _i6;
-import 'package:my_mesl7y_app_server/src/generated/greeting.dart' as _i7;
+import 'package:my_mesl7y_app_server/src/generated/material.dart' as _i5;
+import 'package:my_mesl7y_app_server/src/generated/nabi.dart' as _i6;
+import 'package:my_mesl7y_app_server/src/generated/sira.dart' as _i7;
+import 'package:my_mesl7y_app_server/src/generated/greeting.dart' as _i8;
 import 'package:my_mesl7y_app_server/src/generated/protocol.dart';
 import 'package:my_mesl7y_app_server/src/generated/endpoints.dart';
 export 'package:serverpod_test/serverpod_test_public_exports.dart';
@@ -110,6 +111,8 @@ class TestEndpoints {
 
   late final _FatwaEndpoint fatwa;
 
+  late final _MaterialEndpoint material;
+
   late final _NabiEndpoint nabi;
 
   late final _SiraEndpoint sira;
@@ -133,6 +136,10 @@ class _InternalTestEndpoints extends TestEndpoints
       serializationManager,
     );
     fatwa = _FatwaEndpoint(
+      endpoints,
+      serializationManager,
+    );
+    material = _MaterialEndpoint(
       endpoints,
       serializationManager,
     );
@@ -533,6 +540,59 @@ class _ChatEndpoint {
       }
     });
   }
+
+  _i3.Future<String> getMyActiveChats(
+      _i1.TestSessionBuilder sessionBuilder) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'chat',
+        method: 'getMyActiveChats',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'chat',
+          methodName: 'getMyActiveChats',
+          parameters: _i1.testObjectToJson({}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<String>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _i3.Future<String> getMyChats(_i1.TestSessionBuilder sessionBuilder) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'chat',
+        method: 'getMyChats',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'chat',
+          methodName: 'getMyChats',
+          parameters: _i1.testObjectToJson({}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<String>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
 }
 
 class _FatwaEndpoint {
@@ -676,6 +736,168 @@ class _FatwaEndpoint {
   }
 }
 
+class _MaterialEndpoint {
+  _MaterialEndpoint(
+    this._endpointDispatch,
+    this._serializationManager,
+  );
+
+  final _i2.EndpointDispatch _endpointDispatch;
+
+  final _i2.SerializationManager _serializationManager;
+
+  _i3.Future<_i5.MaterialFile> uploadMaterial(
+    _i1.TestSessionBuilder sessionBuilder, {
+    required String yearName,
+    required String materialName,
+    required String fileUrl,
+    required String fileType,
+  }) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'material',
+        method: 'uploadMaterial',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'material',
+          methodName: 'uploadMaterial',
+          parameters: _i1.testObjectToJson({
+            'yearName': yearName,
+            'materialName': materialName,
+            'fileUrl': fileUrl,
+            'fileType': fileType,
+          }),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<_i5.MaterialFile>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _i3.Future<List<_i5.MaterialFile>> getAllMaterials(
+      _i1.TestSessionBuilder sessionBuilder) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'material',
+        method: 'getAllMaterials',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'material',
+          methodName: 'getAllMaterials',
+          parameters: _i1.testObjectToJson({}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<List<_i5.MaterialFile>>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _i3.Future<List<_i5.MaterialFile>> getMaterialsByYear(
+    _i1.TestSessionBuilder sessionBuilder,
+    String yearName,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'material',
+        method: 'getMaterialsByYear',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'material',
+          methodName: 'getMaterialsByYear',
+          parameters: _i1.testObjectToJson({'yearName': yearName}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<List<_i5.MaterialFile>>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _i3.Future<List<_i5.MaterialFile>> getMaterialsByName(
+    _i1.TestSessionBuilder sessionBuilder,
+    String materialName,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'material',
+        method: 'getMaterialsByName',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'material',
+          methodName: 'getMaterialsByName',
+          parameters: _i1.testObjectToJson({'materialName': materialName}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<List<_i5.MaterialFile>>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _i3.Future<void> deleteMaterial(
+    _i1.TestSessionBuilder sessionBuilder,
+    int id,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'material',
+        method: 'deleteMaterial',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'material',
+          methodName: 'deleteMaterial',
+          parameters: _i1.testObjectToJson({'id': id}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<void>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+}
+
 class _NabiEndpoint {
   _NabiEndpoint(
     this._endpointDispatch,
@@ -777,7 +999,7 @@ class _NabiEndpoint {
     });
   }
 
-  _i3.Future<List<_i5.Nabi>> getAllNabi(
+  _i3.Future<List<_i6.Nabi>> getAllNabi(
       _i1.TestSessionBuilder sessionBuilder) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
       var _localUniqueSession =
@@ -796,7 +1018,7 @@ class _NabiEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<List<_i5.Nabi>>);
+        ) as _i3.Future<List<_i6.Nabi>>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -906,7 +1128,7 @@ class _SiraEndpoint {
     });
   }
 
-  _i3.Future<List<_i6.Sira>> getAllSira(
+  _i3.Future<List<_i7.Sira>> getAllSira(
       _i1.TestSessionBuilder sessionBuilder) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
       var _localUniqueSession =
@@ -925,7 +1147,7 @@ class _SiraEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<List<_i6.Sira>>);
+        ) as _i3.Future<List<_i7.Sira>>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -944,7 +1166,7 @@ class _GreetingEndpoint {
 
   final _i2.SerializationManager _serializationManager;
 
-  _i3.Future<_i7.Greeting> hello(
+  _i3.Future<_i8.Greeting> hello(
     _i1.TestSessionBuilder sessionBuilder,
     String name,
   ) async {
@@ -965,7 +1187,7 @@ class _GreetingEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<_i7.Greeting>);
+        ) as _i3.Future<_i8.Greeting>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();

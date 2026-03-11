@@ -1,0 +1,7 @@
+class: MaterialFile
+table: material_files
+fields:
+  yearName: String
+  materialName: String
+  fileUrl: String
+  fileType: String  # 'pdf' او 'image' او 'video' او غيره
