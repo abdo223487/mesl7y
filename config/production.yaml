@@ -7,21 +7,19 @@
 # Configuration for the main API server.
 apiServer:
   port: 8080
-  publicHost: mesl7y.onrender.com
+  publicHost: mesl7y-production-025c.up.railway.app
   publicPort: 443
   publicScheme: https
 
-# Configuration for the Insights server.
 insightsServer:
   port: 8081
-  publicHost: mesl7y.onrender.com
+  publicHost: mesl7y-production-025c.up.railway.app
   publicPort: 443
   publicScheme: https
 
-# Configuration for the web server.
 webServer:
   port: 8082
-  publicHost: mesl7y.onrender.com
+  publicHost: mesl7y-production-025c.up.railway.app
   publicPort: 443
   publicScheme: https
 
