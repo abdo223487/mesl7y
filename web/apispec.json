@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8082",
+      "url": "https://mesl7y-production.up.railway.app",
       "description": "Main API Server"
     }
   ],
@@ -299,6 +299,239 @@
         }
       }
     },
+    "/chat/requestChat": {
+      "post": {
+        "summary": "requestChat",
+        "operationId": "chat.requestChat",
+        "tags": [
+          "chat"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "parameters": []
+      }
+    },
+    "/chat/acceptChat": {
+      "post": {
+        "summary": "acceptChat",
+        "operationId": "chat.acceptChat",
+        "tags": [
+          "chat"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "conversationId": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "conversationId"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/sendMessage": {
+      "post": {
+        "summary": "sendMessage",
+        "operationId": "chat.sendMessage",
+        "tags": [
+          "chat"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "conversationId": {
+                    "type": "integer"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "conversationId",
+                  "message"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/getMessages": {
+      "post": {
+        "summary": "getMessages",
+        "operationId": "chat.getMessages",
+        "tags": [
+          "chat"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "conversationId": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "conversationId"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/getPendingChats": {
+      "post": {
+        "summary": "getPendingChats",
+        "operationId": "chat.getPendingChats",
+        "tags": [
+          "chat"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "parameters": []
+      }
+    },
+    "/chat/getMyActiveChats": {
+      "post": {
+        "summary": "getMyActiveChats",
+        "operationId": "chat.getMyActiveChats",
+        "tags": [
+          "chat"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "parameters": []
+      }
+    },
+    "/chat/getMyChats": {
+      "post": {
+        "summary": "getMyChats",
+        "operationId": "chat.getMyChats",
+        "tags": [
+          "chat"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "parameters": []
+      }
+    },
     "/fatwa/addFatwa": {
       "post": {
         "summary": "addFatwa",
@@ -443,6 +676,227 @@
         "operationId": "fatwa.deleteFatwa",
         "tags": [
           "fatwa"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/material/uploadMaterial": {
+      "post": {
+        "summary": "uploadMaterial",
+        "operationId": "material.uploadMaterial",
+        "tags": [
+          "material"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MaterialFile"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "yearName": {
+                    "type": "string"
+                  },
+                  "materialName": {
+                    "type": "string"
+                  },
+                  "fileUrl": {
+                    "type": "string"
+                  },
+                  "fileType": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "yearName",
+                  "materialName",
+                  "fileUrl",
+                  "fileType"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/material/getAllMaterials": {
+      "post": {
+        "summary": "getAllMaterials",
+        "operationId": "material.getAllMaterials",
+        "tags": [
+          "material"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MaterialFile"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "parameters": []
+      }
+    },
+    "/material/getMaterialsByYear": {
+      "post": {
+        "summary": "getMaterialsByYear",
+        "operationId": "material.getMaterialsByYear",
+        "tags": [
+          "material"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MaterialFile"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "yearName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "yearName"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/material/getMaterialsByName": {
+      "post": {
+        "summary": "getMaterialsByName",
+        "operationId": "material.getMaterialsByName",
+        "tags": [
+          "material"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MaterialFile"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "materialName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "materialName"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/material/deleteMaterial": {
+      "post": {
+        "summary": "deleteMaterial",
+        "operationId": "material.deleteMaterial",
+        "tags": [
+          "material"
         ],
         "parameters": [],
         "responses": {
@@ -766,133 +1220,6 @@
         ],
         "parameters": []
       }
-    },
-    "/unit/addUnit": {
-      "post": {
-        "summary": "addUnit",
-        "operationId": "unit.addUnit",
-        "tags": [
-          "unit"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unit"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "jwt": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "number": {
-                    "type": "integer"
-                  },
-                  "imageData": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "name",
-                  "number"
-                ]
-              }
-            }
-          }
-        }
-      }
-    },
-    "/unit/getUnit": {
-      "post": {
-        "summary": "getUnit",
-        "operationId": "unit.getUnit",
-        "tags": [
-          "unit"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unit"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "jwt": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "id"
-                ]
-              }
-            }
-          }
-        }
-      }
-    },
-    "/unit/getAllUnits": {
-      "post": {
-        "summary": "getAllUnits",
-        "operationId": "unit.getAllUnits",
-        "tags": [
-          "unit"
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Unit"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "jwt": []
-          }
-        ],
-        "parameters": []
-      }
     }
   },
   "components": {
@@ -922,6 +1249,99 @@
           "passwordHash",
           "createdAt",
           "isActive"
+        ]
+      },
+      "ChatConversation": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "adminId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "$ref": "#/components/schemas/String, default='pending'"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "customerId",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ChatEvent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "conversationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "senderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "senderRole": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "sentAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "conversationId",
+          "senderId",
+          "senderRole",
+          "message",
+          "sentAt"
+        ]
+      },
+      "ChatMessage": {
+        "type": "object",
+        "properties": {
+          "conversationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "senderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "senderRole": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "conversationId",
+          "senderId",
+          "senderRole",
+          "message",
+          "createdAt"
         ]
       },
       "Customer": {
@@ -964,6 +1384,29 @@
         "required": [
           "title",
           "content"
+        ]
+      },
+      "MaterialFile": {
+        "type": "object",
+        "properties": {
+          "yearName": {
+            "type": "string"
+          },
+          "materialName": {
+            "type": "string"
+          },
+          "fileUrl": {
+            "type": "string"
+          },
+          "fileType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "yearName",
+          "materialName",
+          "fileUrl",
+          "fileType"
         ]
       },
       "Nabi": {
@@ -1020,25 +1463,6 @@
         },
         "required": [
           "content"
-        ]
-      },
-      "Unit": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "number": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "imageUrl": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "number"
         ]
       }
     },
