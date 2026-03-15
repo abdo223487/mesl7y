@@ -1,0 +1,10 @@
+class: AzkarItem
+table: azkar_items
+fields:
+  category: String
+  arabicText: String
+  repeat: int
+  orderIndex: int
+indexes:
+  azkar_category_idx:
+    fields: category

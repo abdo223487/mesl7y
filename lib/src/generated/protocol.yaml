@@ -6,6 +6,11 @@ auth:
   - logoutAll:
   - me:
   - changePassword:
+azkar:
+  - getAzkar:
+  - addAzkar:
+  - updateAzkar:
+  - deleteAzkar:
 chat:
   - requestChat:
   - acceptChat:
