@@ -10,54 +10,40 @@ class ChatUserObject {
 
 class ChatEndpoint extends Endpoint with AuthProtected {
 
-  Future<String> requestChat(Session session) async {
-    final info = await session.authenticated;
-    if (info == null) throw Exception('unauthorized');
-    if (info.scopes.contains(Scope('admin'))) throw Exception('forbidden');
+ Future<String> requestChat(Session session) async {
+  final info = await session.authenticated;
+  if (info == null) throw Exception('unauthorized');
+  if (info.scopes.contains(Scope('admin'))) throw Exception('forbidden');
 
-    final customerId = info.userId;
+  final customerId = info.userId;
 
-    final existing = await ChatConversation.db.findFirstRow(
-      session,
-      where: (c) =>
-          c.customerId.equals(customerId) &
-          (c.status.equals('pending') | c.status.equals('active')),
-    );
-    if (existing != null) {
-      return jsonEncode({
-        'conversationId': existing.id,
-        'status': existing.status,
-      });
-    }
+  final conversation = await ChatConversation.db.insertRow(
+    session,
+    ChatConversation(
+      customerId: customerId,
+      status: 'pending',
+      createdAt: DateTime.now().toUtc(),
+      updatedAt: DateTime.now().toUtc(),
+    ),
+  );
 
-    final conversation = await ChatConversation.db.insertRow(
-      session,
-      ChatConversation(
-        customerId: customerId,
-        status: 'pending',
-        createdAt: DateTime.now().toUtc(),
-        updatedAt: DateTime.now().toUtc(),
-      ),
-    );
+  session.messages.postMessage(
+    'admin_notifications',
+    ChatEvent(
+      type: 'new_request',
+      conversationId: conversation.id!,
+      senderId: customerId,
+      senderRole: 'customer',
+      message: '',
+      sentAt: DateTime.now().toIso8601String(),
+    ),
+  );
 
-    session.messages.postMessage(
-      'admin_notifications',
-      ChatEvent(
-        type: 'new_request',
-        conversationId: conversation.id!,
-        senderId: customerId,
-        senderRole: 'customer',
-        message: '',
-        sentAt: DateTime.now().toIso8601String(),
-      ),
-    );
-
-    return jsonEncode({
-      'conversationId': conversation.id,
-      'status': 'pending',
-    });
-  }
-
+  return jsonEncode({
+    'conversationId': conversation.id,
+    'status': 'pending',
+  });
+}
   Future<void> acceptChat(Session session, int conversationId) async {
     final info = await session.authenticated;
     if (info == null) throw Exception('unauthorized');
