@@ -31,9 +31,6 @@ void run(List<String> args) async {
     '/*',
   );
 
-  pod.webServer.addRoute(
-  RouteStaticDirectory(serverDirectory: 'web/static', basePath: '/swagger'),
-  '/swagger/*',
-  );
+  
   await pod.start();
 }

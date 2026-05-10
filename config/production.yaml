@@ -18,7 +18,7 @@ insightsServer:
   publicScheme: https
 
 webServer:
-  port: 8080
+  port: 8082
   publicHost: mesl7y-c8uz.onrender.com
   publicPort: 443
   publicScheme: https
