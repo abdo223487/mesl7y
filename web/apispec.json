@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://mesl7y-production-025c.up.railway.app",
+      "url": "https://mesl7y-c8uz.onrender.com",
       "description": "Main API Server"
     }
   ],
