@@ -31,6 +31,10 @@ void run(List<String> args) async {
     '/*',
   );
 
-  
+  pod.webServer.addRoute(
+    SwaggerUIRoute(Directory('web')),
+    '/swagger/*',
+  );
+
   await pod.start();
 }
